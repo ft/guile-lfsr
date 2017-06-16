@@ -51,12 +51,11 @@
             (logior shifted msb))))))
 
 (define (lfsr-step-galois gp)
-  (let* ((width (minimum-word-width gp)))
-    (lambda (x)
-      (let* ((new (logand x 1)))
-        (if (zero? new)
-            (ash x -1)
-            (ash (logxor x gp) -1))))))
+  (lambda (x)
+    (let* ((new (logand x 1)))
+      (if (zero? new)
+          (ash x -1)
+          (ash (logxor x gp) -1)))))
 
 (define (make-lfsr-stream gp init stepper)
   (lfsr-iterator (stepper gp) init))
