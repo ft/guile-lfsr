@@ -38,17 +38,10 @@
 (define (fetch-31 k n)
   (vector-ref (vector-ref ternary-code-31-cfg (- n 1)) k))
 
-(define (lfsr-a-31-gp n)
-  (fetch-31 0 n))
-
-(define (lfsr-a-31-init n)
-  (fetch-31 1 n))
-
-(define (lfsr-b-31-gp n)
-  (fetch-31 2 n))
-
-(define (lfsr-b-31-init n)
-  (fetch-31 3 n))
+(define (lfsr-a-31-gp n)   (fetch-31 0 n))
+(define (lfsr-a-31-init n) (fetch-31 1 n))
+(define (lfsr-b-31-gp n)   (fetch-31 2 n))
+(define (lfsr-b-31-init n) (fetch-31 3 n))
 
 (define (ternary-mapper n)
   (if (zero? n) 1 -1))
