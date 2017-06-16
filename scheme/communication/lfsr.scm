@@ -41,13 +41,14 @@
         (loop (ash x -1) (+ 1 steps)))))
 
 (define (lfsr-step-fibonacci gp)
-  (let ((width (minimum-word-width gp)))
+  (let* ((width (minimum-word-width gp))
+         (msb (ash 1 (- width 1))))
     (lambda (x)
       (let ((new (feedback-xor (logand x gp)))
             (shifted (ash x -1)))
         (if (zero? new)
             shifted
-            (logior shifted (ash 1 (- width 1))))))))
+            (logior shifted msb))))))
 
 (define (lfsr-step-galois gp)
   (let* ((width (minimum-word-width gp)))
