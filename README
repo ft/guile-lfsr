@@ -1,0 +1,19 @@
+  -------------------------------------------------
+    Linear Feedback Shift Registers for GNU Guile
+  -------------------------------------------------
+
+This  library  contains  two  scheme   modules  targetted  at  GNU  Guile.  The
+(communication  lfsr)  module implements  linear  feedback  shift registers  as
+infinite  streams of  bits.  LFSRs  are used,  for  example,  to generate  chip
+sequences  in CDMA  systems, for  synchronising preambles  or as  pseudo random
+number generators.
+
+The (communication  gps-ca) module,  which uses  the former  implements streams
+that  produce pseudo  random gold  chip sequences  as used  in C/A  of the  GPS
+satellite system.
+
+To run the test-suite of the library, the following additional dependencies are
+required:
+
+    https://github.com/ft/scm-test-tap
+    https://github.com/ft/test-dispatch
