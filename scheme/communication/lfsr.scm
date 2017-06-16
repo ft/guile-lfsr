@@ -24,6 +24,7 @@
   #:use-module (srfi srfi-41)
   #:use-module (srfi srfi-60)
   #:export (make-lfsr-stream-fibonacci
+            make-lfsr-stream-galois
             word->bit-lfsr
             feedback-xor))
 
@@ -48,11 +49,22 @@
             shifted
             (logior shifted (ash 1 (- width 1))))))))
 
+(define (lfsr-step-galois gp)
+  (let* ((width (minimum-word-width gp)))
+    (lambda (x)
+      (let* ((new (logand x 1)))
+        (if (zero? new)
+            (ash x -1)
+            (ash (logxor x gp) -1))))))
+
 (define (make-lfsr-stream gp init stepper)
   (lfsr-iterator (stepper gp) init))
 
 (define (make-lfsr-stream-fibonacci gp init)
   (make-lfsr-stream gp init lfsr-step-fibonacci))
+
+(define (make-lfsr-stream-galois gp init)
+  (make-lfsr-stream gp init lfsr-step-galois))
 
 (define (word->bit-lfsr strm)
   (stream-map (lambda (x) (logand x 1)) strm))
