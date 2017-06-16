@@ -25,6 +25,9 @@
   #:use-module (communication lfsr)
   #:export (ternary-code-31-chips))
 
+(define (ternary-mapper n)
+  (if (zero? n) 1 -1))
+
 (define ternary-code-31-cfg
   (vector (vector 41 20    61 20)
           (vector 47  8    59  1)
@@ -42,9 +45,6 @@
 (define (lfsr-a-31-init n) (fetch-31 1 n))
 (define (lfsr-b-31-gp n)   (fetch-31 2 n))
 (define (lfsr-b-31-init n) (fetch-31 3 n))
-
-(define (ternary-mapper n)
-  (if (zero? n) 1 -1))
 
 (define (ternary-code-31-chip-stream n)
   (let* ((gp-a (lfsr-a-31-gp n))
