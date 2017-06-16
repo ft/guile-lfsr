@@ -33,11 +33,14 @@
 (define lfsr-iterator
   (stream-lambda (fnc head) (stream-cons head (lfsr-iterator fnc (fnc head)))))
 
+(define (minimum-word-width word)
+  (let loop ((x word) (steps 0))
+    (if (zero? x)
+        (- steps 1)
+        (loop (ash x -1) (+ 1 steps)))))
+
 (define (make-lfsr-step gp)
-  (let ((width (let loop ((x gp) (steps 0))
-                 (if (zero? x)
-                     (- steps 1)
-                     (loop (ash x -1) (+ 1 steps))))))
+  (let ((width (minimum-word-width gp)))
     (lambda (x)
       (let ((new (feedback-xor (logand x gp)))
             (shifted (ash x -1)))
