@@ -2,15 +2,20 @@
     Linear Feedback Shift Registers for GNU Guile
   -------------------------------------------------
 
-This  library  contains  two  scheme   modules  targetted  at  GNU  Guile.  The
+This  library  contains  three  scheme  modules targetted  at  GNU  Guile.  The
 (communication  lfsr)  module implements  linear  feedback  shift registers  as
 infinite  streams of  bits.  LFSRs  are used,  for  example,  to generate  chip
 sequences  in CDMA  systems, for  synchronising preambles  or as  pseudo random
-number generators.
+number generators.  The module  implements LFSRs in  both Fibonacci  and Galois
+configurations.
 
 The (communication  gps-ca) module,  which uses  the former  implements streams
 that  produce pseudo  random gold  chip sequences  as used  in C/A  of the  GPS
-satellite system.
+satellite system. It uses LFSRs in Fibonacci configuration.
+
+The (communication  ieee802-15-4a-preamble) module implements  ternary preamble
+sequences as used in  ultra-wideband transmissions the ieee-802.15.4a standard.
+The generators for these sequences use LFSRs in Galois configuration.
 
 To run the test-suite of the library, the following additional dependencies are
 required:
