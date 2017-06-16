@@ -47,13 +47,15 @@
 (define (lfsr-b-31-gp n)   (fetch-31 2 n))
 (define (lfsr-b-31-init n) (fetch-31 3 n))
 
+(define (make-code-31-a-stream n)
+  (make-lfsr-stream-galois (lfsr-a-31-gp n) (lfsr-a-31-init n)))
+
+(define (make-code-31-b-stream n)
+  (make-lfsr-stream-galois (lfsr-b-31-gp n) (lfsr-b-31-init n)))
+
 (define (ternary-code-31-chip-stream n)
-  (let* ((gp-a (lfsr-a-31-gp n))
-         (init-a (lfsr-a-31-init n))
-         (stream-a (word->bit-lfsr (make-lfsr-stream-galois gp-a init-a)))
-         (gp-b (lfsr-b-31-gp n))
-         (init-b (lfsr-b-31-init n))
-         (stream-b (word->bit-lfsr (make-lfsr-stream-galois gp-b init-b))))
+  (let* ((stream-a (word->bit-lfsr (make-code-31-a-stream n)))
+         (stream-b (word->bit-lfsr (make-code-31-b-stream n))))
     (stream-map (lambda (a b)
                   (* a (ternary-mapper b)))
                 stream-a
@@ -91,16 +93,19 @@
 (define (lfsr-c-127-gp n)   (fetch-127 4 n))
 (define (lfsr-c-127-init n) (fetch-127 5 n))
 
+(define (make-code-127-a-stream n)
+  (make-lfsr-stream-galois (lfsr-a-127-gp n) (lfsr-a-127-init n)))
+
+(define (make-code-127-b-stream n)
+  (make-lfsr-stream-galois (lfsr-b-127-gp n) (lfsr-b-127-init n)))
+
+(define (make-code-127-c-stream n)
+  (make-lfsr-stream-galois (lfsr-c-127-gp n) (lfsr-c-127-init n)))
+
 (define (ternary-code-127-chip-stream n)
-  (let* ((gp-a (lfsr-a-127-gp n))
-         (init-a (lfsr-a-127-init n))
-         (stream-a (word->bit-lfsr (make-lfsr-stream-galois gp-a init-a)))
-         (gp-b (lfsr-b-127-gp n))
-         (init-b (lfsr-b-127-init n))
-         (stream-b (word->bit-lfsr (make-lfsr-stream-galois gp-b init-b)))
-         (gp-c (lfsr-c-127-gp n))
-         (init-c (lfsr-c-127-init n))
-         (stream-c (word->bit-lfsr (make-lfsr-stream-galois gp-c init-c))))
+  (let* ((stream-a (word->bit-lfsr (make-code-127-a-stream n)))
+         (stream-b (word->bit-lfsr (make-code-127-b-stream n)))
+         (stream-c (word->bit-lfsr (make-code-127-c-stream n))))
     (stream-map (lambda (a b c)
                   (* a (ternary-mapper (logxor b c))))
                 stream-a
