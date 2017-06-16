@@ -23,7 +23,8 @@
 (define-module (communication ieee802-15-4a-preamble)
   #:use-module (srfi srfi-41)
   #:use-module (communication lfsr)
-  #:export (ternary-code-31-chips))
+  #:export (ternary-code-31-chips
+            ternary-code-127-chips))
 
 (define (ternary-mapper n)
   (if (zero? n) 1 -1))
