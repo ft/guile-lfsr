@@ -23,7 +23,7 @@
 (define-module (communication lfsr)
   #:use-module (srfi srfi-41)
   #:use-module (srfi srfi-60)
-  #:export (make-lfsr-stream
+  #:export (make-lfsr-stream-fibonacci
             word->bit-lfsr
             feedback-xor))
 
@@ -39,7 +39,7 @@
         (- steps 1)
         (loop (ash x -1) (+ 1 steps)))))
 
-(define (make-lfsr-step gp)
+(define (lfsr-step-fibonacci gp)
   (let ((width (minimum-word-width gp)))
     (lambda (x)
       (let ((new (feedback-xor (logand x gp)))
@@ -48,8 +48,11 @@
             shifted
             (logior shifted (ash 1 (- width 1))))))))
 
-(define (make-lfsr-stream gp init)
-  (lfsr-iterator (make-lfsr-step gp) init))
+(define (make-lfsr-stream gp init stepper)
+  (lfsr-iterator (stepper gp) init))
+
+(define (make-lfsr-stream-fibonacci gp init)
+  (make-lfsr-stream gp init lfsr-step-fibonacci))
 
 (define (word->bit-lfsr strm)
   (stream-map (lambda (x) (logand x 1)) strm))

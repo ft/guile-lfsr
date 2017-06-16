@@ -11,9 +11,11 @@
 (with-test-bundle (guile communication lfsr)
   (plan 2)
   ;; These are examples from the GPS satellite system:
-  (let ((rng-a (word->bit-lfsr (make-lfsr-stream #b10010000001 #b1111111111)))
+  (let ((rng-a (word->bit-lfsr (make-lfsr-stream-fibonacci #b10010000001
+                                                           #b1111111111)))
         (first-14-a '(1 1 1 1 1 1 1 1 1 1 0 0 0 1))
-        (rng-b (word->bit-lfsr (make-lfsr-stream #b10110010111 #b1111111111)))
+        (rng-b (word->bit-lfsr (make-lfsr-stream-fibonacci #b10110010111
+                                                           #b1111111111)))
         (first-14-b '(1 1 1 1 1 1 1 1 1 1 0 0 1 0)))
     (define-test "First 14 chips from GPS-G1 look good"
       (pass-if-equal? (stream->list 14 rng-a)

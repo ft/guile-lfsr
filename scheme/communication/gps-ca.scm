@@ -26,9 +26,9 @@
   #:export (make-gps-ca-stream
             gps-prn-id->code-delay))
 
-(define stream-g1-parallel (make-lfsr-stream #b10010000001 #b1111111111))
+(define stream-g1-parallel (make-lfsr-stream-fibonacci #b10010000001 #b1111111111))
 (define stream-g1-serial (word->bit-lfsr stream-g1-parallel))
-(define stream-g2-parallel (make-lfsr-stream #b10110010111 #b1111111111))
+(define stream-g2-parallel (make-lfsr-stream-fibonacci #b10110010111 #b1111111111))
 
 (define (gen-selector a b)
   (logior (ash 1 (- 9 a))
