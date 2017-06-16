@@ -60,3 +60,51 @@
 
 (define (ternary-code-31-chips n)
   (reverse (stream->list 31 (ternary-code-31-chip-stream n))))
+
+
+(define ternary-code-127-cfg
+  (vector (vector 131  73    143  76    185 122)
+          (vector 137  99    143 106    157 101)
+          (vector 241  90    247 123    253  31)
+          (vector 167 117    143  42    137 109)
+          (vector 157  72    203 100    239  70)
+          (vector 203  96    143   1    191  50)
+          (vector 247  32    131 106    145 124)
+          (vector 171 126    185 115    191 122)
+          (vector 193  73    157  47    241  25)
+          (vector 145  99    185  83    241  43)
+          (vector 143  90    191  71    239  49)
+          (vector 229  87    241  42    145  91)
+          (vector 185  72    211  75    247 102)
+          (vector 211  48    241  76    253 110)
+          (vector 239   8    137 124    193 109)
+          (vector 213 126    157  83    253  94)))
+
+(define (fetch-127 k n)
+  (vector-ref (vector-ref ternary-code-127-cfg (- n 1)) k))
+
+(define (lfsr-a-127-gp n)   (fetch-127 0 n))
+(define (lfsr-a-127-init n) (fetch-127 1 n))
+(define (lfsr-b-127-gp n)   (fetch-127 2 n))
+(define (lfsr-b-127-init n) (fetch-127 3 n))
+(define (lfsr-c-127-gp n)   (fetch-127 4 n))
+(define (lfsr-c-127-init n) (fetch-127 5 n))
+
+(define (ternary-code-127-chip-stream n)
+  (let* ((gp-a (lfsr-a-127-gp n))
+         (init-a (lfsr-a-127-init n))
+         (stream-a (word->bit-lfsr (make-lfsr-stream-galois gp-a init-a)))
+         (gp-b (lfsr-b-127-gp n))
+         (init-b (lfsr-b-127-init n))
+         (stream-b (word->bit-lfsr (make-lfsr-stream-galois gp-b init-b)))
+         (gp-c (lfsr-c-127-gp n))
+         (init-c (lfsr-c-127-init n))
+         (stream-c (word->bit-lfsr (make-lfsr-stream-galois gp-c init-c))))
+    (stream-map (lambda (a b c)
+                  (* a (ternary-mapper (logxor b c))))
+                stream-a
+                stream-b
+                stream-c)))
+
+(define (ternary-code-127-chips n)
+  (reverse (stream->list 127 (ternary-code-127-chip-stream n))))
