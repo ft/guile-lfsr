@@ -26,7 +26,7 @@
   #:export (make-lfsr-stream-fibonacci
             make-lfsr-stream-galois
             word->bit-lfsr
-            feedback-xor
+            multi-xor
             reverse-initial-state
             reverse-generator-polynom
             reverse-gp-and-state))
@@ -42,7 +42,7 @@
     (cons (reverse-generator-polynom gp)
           (reverse-initial-state state lfsr-length))))
 
-(define (feedback-xor x)
+(define (multi-xor x)
   (modulo (bit-count x) 2))
 
 (define lfsr-iterator
@@ -58,7 +58,7 @@
   (let* ((width (minimum-word-width gp))
          (msb (ash 1 (- width 1))))
     (lambda (x)
-      (let ((new (feedback-xor (logand x gp)))
+      (let ((new (multi-xor (logand x gp)))
             (shifted (ash x -1)))
         (if (zero? new)
             shifted

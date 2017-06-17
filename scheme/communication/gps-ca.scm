@@ -81,7 +81,7 @@
 
 (define (make-g2-serial-stream gps-prn-id)
   (let ((phase-select (gps-prn-id->phase-selector gps-prn-id)))
-    (stream-map (lambda (x) (feedback-xor (logand x phase-select)))
+    (stream-map (lambda (x) (multi-xor (logand x phase-select)))
                 stream-g2-parallel)))
 
 (define (make-gps-ca-stream gps-prn-id)
