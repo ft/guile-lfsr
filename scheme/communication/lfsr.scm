@@ -38,9 +38,9 @@
   (list->integer (reverse (integer->list state len))))
 
 (define (reverse-gp-and-state gp state)
-  (let ((gp-length (length (integer->list gp))))
+  (let ((lfsr-length (- (length (integer->list gp)) 1)))
     (cons (reverse-generator-polynom gp)
-          (reverse-initial-state state (- gp-length 1)))))
+          (reverse-initial-state state lfsr-length))))
 
 (define (feedback-xor x)
   (modulo (bit-count x) 2))
