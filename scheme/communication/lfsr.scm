@@ -26,7 +26,21 @@
   #:export (make-lfsr-stream-fibonacci
             make-lfsr-stream-galois
             word->bit-lfsr
-            feedback-xor))
+            feedback-xor
+            reverse-initial-state
+            reverse-generator-polynom
+            reverse-gp-and-state))
+
+(define (reverse-generator-polynom gp)
+  (list->integer (reverse (integer->list gp))))
+
+(define (reverse-initial-state state len)
+  (list->integer (reverse (integer->list state len))))
+
+(define (reverse-gp-and-state gp state)
+  (let ((gp-length (length (integer->list gp))))
+    (cons (reverse-generator-polynom gp)
+          (reverse-initial-state state (- gp-length 1)))))
 
 (define (feedback-xor x)
   (modulo (bit-count x) 2))
