@@ -23,7 +23,8 @@
 (define-module (communication ieee802-15-4a-preamble)
   #:use-module (srfi srfi-41)
   #:use-module (communication lfsr)
-  #:export (ternary-code-31-chips
+  #:export (ternary-code-chips
+            ternary-code-31-chips
             ternary-code-127-chips))
 
 (define (ternary-mapper n)
@@ -114,3 +115,11 @@
 
 (define (ternary-code-127-chips n)
   (reverse (stream->list 127 (ternary-code-127-chip-stream n))))
+
+(define (ternary-code-chips n)
+  (let* ((short? (< n 9))
+         (size (or (and short? 31) 127))
+         (stream (or (and short? ternary-code-31-chip-stream)
+                     ternary-code-127-chip-stream))
+         (index (or (and short? n) (- n 8))))
+    (reverse (stream->list size (stream index)))))
