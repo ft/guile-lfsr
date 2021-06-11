@@ -22,7 +22,7 @@
 
 (define-module (communication lfsr)
   #:use-module (srfi srfi-41)
-  #:use-module ((srfi srfi-60) #:prefix srfi60:)
+  #:use-module ((srfi srfi-151) #:prefix srfi151:)
   #:export (make-lfsr-stream-fibonacci
             make-lfsr-stream-galois
             word->bit-lfsr
@@ -32,18 +32,18 @@
             reverse-gp-and-state))
 
 (define (reverse-generator-polynom gp)
-  (srfi60:list->integer (reverse (srfi60:integer->list gp))))
+  (srfi151:list->bits (srfi151:bits->list gp)))
 
 (define (reverse-initial-state state len)
-  (srfi60:list->integer (reverse (srfi60:integer->list state len))))
+  (srfi151:list->bits (srfi151:bits->list state len)))
 
 (define (reverse-gp-and-state gp state)
-  (let ((lfsr-length (- (length (srfi60:integer->list gp)) 1)))
+  (let ((lfsr-length (- (length (srfi151:bits->list gp)) 1)))
     (cons (reverse-generator-polynom gp)
           (reverse-initial-state state lfsr-length))))
 
 (define (multi-xor x)
-  (modulo (srfi60:bit-count x) 2))
+  (modulo (srfi151:bit-count x) 2))
 
 (define lfsr-iterator
   (stream-lambda (fnc head) (stream-cons head (lfsr-iterator fnc (fnc head)))))
