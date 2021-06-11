@@ -17,8 +17,5 @@ The (communication  ieee802-15-4a-preamble) module implements  ternary preamble
 sequences as used in  ultra-wideband transmissions the ieee-802.15.4a standard.
 The generators for these sequences use LFSRs in Galois configuration.
 
-To run the test-suite of the library, the following additional dependencies are
-required:
-
-    https://github.com/ft/scm-test-tap
-    https://github.com/ft/test-dispatch
+To run  the test-suite of the  library, the following additional  dependency is
+required:   https://gitlab.com/ft/guile-tap
