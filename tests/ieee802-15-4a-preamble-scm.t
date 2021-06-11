@@ -4,7 +4,6 @@
 ;; All rights reserved.
 
 (use-modules (srfi srfi-41)
-             (srfi srfi-60)
              (test tap)
              (test setup)
              (communication ieee802-15-4a-preamble))

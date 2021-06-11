@@ -4,7 +4,7 @@
 ;; All rights reserved.
 
 (use-modules (srfi srfi-41)
-             (srfi srfi-60)
+             ((srfi srfi-60) #:prefix srfi60:)
              (test tap)
              (test setup)
              (communication gps-ca))
@@ -12,7 +12,7 @@
 ;; Here are the first 10 bits for each C/A sequence:
 (define first-10-ca-bits (map (lambda (x)
                                 (map (lambda (y) (if y 1 0))
-                                     (integer->list x)))
+                                     (srfi60:integer->list x)))
                               '(#o1440 #o1620 #o1710 #o1744 #o1133
                                 #o1455 #o1131 #o1454 #o1626 #o1504
                                 #o1642 #o1750 #o1764 #o1772 #o1775
