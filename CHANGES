@@ -2,6 +2,19 @@
  User-visible changes in guile-lfsr
 ------------------------------------
 
+* v0.1.0 → v0.1.1 (released 2021-07-04):
+
+** Miscellaneous
+
+  - Install package documentation to DOCDIR
+
+** Diffstat
+
+    Makefile      |  5 +++--
+    tools/install | 34 +++++++++++++++++++++++++++++-----
+    2 files changed, 32 insertions(+), 7 deletions(-)
+
+
 * scratch → v0.1.0 (released 2021-07-04):
 
 ** Diffstat
