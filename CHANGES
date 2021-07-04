@@ -1,0 +1,26 @@
+------------------------------------
+ User-visible changes in guile-lfsr
+------------------------------------
+
+* scratch → v0.1.0 (released 2021-07-04):
+
+** Diffstat
+
+    .gitignore                                    |  13 +
+    LICENCE                                       | 165 +++++
+    LICENCE.GPL                                   | 674 ++++++++++++++++++
+    Makefile                                      |  50 ++
+    README                                        |  21 +
+    scheme/communication/gps-ca.scm               |  90 +++
+    .../communication/ieee802-15-4a-preamble.scm  | 125 ++++
+    scheme/communication/lfsr.scm                 |  84 +++
+    scheme/test/setup.scm                         |  15 +
+    tests/gps-ca-scm.t                            |  34 +
+    tests/ieee802-15-4a-preamble-scm.t            |  58 ++
+    tests/lfsr-scm.t                              |  25 +
+    tests/scheme.env                              |   7 +
+    tools/dev-env                                 |  11 +
+    tools/guile-in-here                           |   5 +
+    tools/install                                 | 171 +++++
+    tools/run-single-test                         |  12 +
+    17 files changed, 1560 insertions(+)
